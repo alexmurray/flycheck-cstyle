@@ -36,6 +36,10 @@
 ;;; Code:
 (require 'flycheck)
 
+(defgroup flycheck-cstyle nil
+  "Integrate cstyle with flycheck."
+  :group 'flycheck)
+
 (defcustom flycheck-cstyle-config
   "~/.cstyle"
   "Configuration to use with cstyle.")
