@@ -22,6 +22,14 @@ See `https://github.com/alexmurray/cstyle/'."
                          line-end))
   :modes c-mode c++-mode)
 
+;;;###autoload
+(defun flycheck-cstyle-setup ()
+  "Setup flycheck-cstyle.
+
+Add `cstyle' to `flycheck-checkers'."
+  (interactive)
+  (add-to-list 'flycheck-checkers 'cstyle))
+
 (provide 'flycheck-cstyle)
 
 ;;; flycheck-cstyle.el ends here
