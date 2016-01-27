@@ -17,9 +17,9 @@ See `https://github.com/alexmurray/cstyle/'."
   :command ("cstyle"
             (eval (list "--config" (expand-file-name flycheck-cstyle-config)))
             source)
-  :error-patterns ((warning line-start (file-name) ":" line ":" column ":"
-                            (message (minimal-match (one-or-more anything)))
-                            line-end))
+  :error-patterns ((info line-start (file-name) ":" line ":" column ":"
+                         (message (minimal-match (one-or-more anything)))
+                         line-end))
   :modes c-mode c++-mode)
 
 (provide 'flycheck-cstyle)
