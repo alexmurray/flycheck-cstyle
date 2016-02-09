@@ -36,20 +36,16 @@
 ;;; Code:
 (require 'flycheck)
 
-(defgroup flycheck-cstyle nil
-  "Integrate cstyle with flycheck."
-  :group 'flycheck)
-
-(defcustom flycheck-cstyle-config
-  "~/.cstyle"
-  "Configuration to use with cstyle.")
+(flycheck-def-config-file-var flycheck-cstyle-config cstyle
+                              ".cstyle"
+  :safe #'stringp)
 
 (flycheck-define-checker cstyle
   "A checker using cstyle.
 
 See `https://github.com/alexmurray/cstyle/'."
   :command ("cstyle"
-            (eval (list "--config" (expand-file-name flycheck-cstyle-config)))
+            (config-file "--config" flycheck-cstyle-config)
             source)
   :error-patterns ((info line-start (file-name) ":" line ":" column ":"
                          (message (minimal-match (one-or-more anything)))
