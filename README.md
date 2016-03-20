@@ -19,7 +19,20 @@ flycheck-cstyle RET</kbd>
 To enable then simply add the following to your init file:
 
 ```emacs-lisp
-(flycheck-cstyle-setup)
+(eval-after-load 'flycheck
+  '(progn
+     (require 'flycheck-cstyle)
+     (flycheck-cstyle-setup)
+     ;; chain after cppcheck since this is the last checker in the upstream
+     ;; configuration
+     (flycheck-add-next-checker 'c/c++-cppcheck '(warning . cstyle))))
+```
+
+If you do not use `cppcheck` then chain after whichever checker you do use
+(ie. clang / gcc / irony etc)
+
+```emacs-lisp
+(flycheck-add-next-checker 'c/c++-clang '(warning . cstyle))
 ```
 
 ### Manual

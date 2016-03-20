@@ -1,6 +1,7 @@
 ;;; flycheck-cstyle.el --- Integrate cstyle with flycheck
+
 ;; Copyright (c) 2016 Alex Murray
-;;
+
 ;; Author: Alex Murray <murray.alex@gmail.com>
 ;; Maintainer: Alex Murray <murray.alex@gmail.com>
 ;; URL: https://github.com/alexmurray/flycheck-cstyle
@@ -23,15 +24,24 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ;;; Commentary:
-;;
+
 ;; This packages integrates cstyle with flycheck to automatically check the
 ;; style of your C/C++ code on the fly.
-;;
-;; To enable:
-;;
-;; (require 'flycheck-cstyle)
-;; (flycheck-cstyle-setup)
-;;
+
+;;;; Setup
+
+;; (eval-after-load 'flycheck
+;;   '(progn
+;;      (require 'flycheck-cstyle)
+;;      (flycheck-cstyle-setup)
+;;      ;; chain after cppcheck since this is the last checker in the upstream
+;;      ;; configuration
+;;      (flycheck-add-next-checker 'c/c++-cppcheck '(warning . cstyle))))
+
+;; If you do not use cppcheck then chain after clang / gcc / other C checker
+;; that you use
+
+;; (flycheck-add-next-checker 'c/c++-clang '(warning . cstyle))
 
 ;;; Code:
 (require 'flycheck)
@@ -58,7 +68,8 @@ See `https://github.com/alexmurray/cstyle/'."
 
 Add `cstyle' to `flycheck-checkers'."
   (interactive)
-  (add-to-list 'flycheck-checkers 'cstyle))
+  ;; append to list and chain after existing checkers
+  (add-to-list 'flycheck-checkers 'cstyle t))
 
 (provide 'flycheck-cstyle)
 
