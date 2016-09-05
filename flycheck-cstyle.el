@@ -60,7 +60,7 @@ See `https://github.com/alexmurray/cstyle/'."
   :error-patterns ((info line-start (file-name) ":" line ":" column ":"
                          (message (minimal-match (one-or-more anything)))
                          line-end))
-  :modes c-mode c++-mode)
+  :modes (c-mode c++-mode))
 
 ;;;###autoload
 (defun flycheck-cstyle-setup ()
